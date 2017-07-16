@@ -1,6 +1,14 @@
-FROM ubuntu:16.04
+FROM scylladb/scylla-build-dependencies-docker:ubuntu-16.04-clang-trunk
 MAINTAINER Avi Kivity <avi@scylladb.com>
-RUN echo deb [trusted=yes] http://apt.llvm.org/xenial/ llvm-toolchain-xenial main > /etc/apt/sources.list.d/clang.list
-RUN echo deb [trusted=yes arch=amd64] http://downloads.scylladb.com/deb/3rdparty/xenial xenial scylladb/multiverse > /etc/apt/sources.list.d/scylla-3rdparty.list
-RUN apt update
-RUN apt -y install clang-5.0 libaio-dev ninja-build ragel libhwloc-dev libnuma-dev libpciaccess-dev libcrypto++-dev libboost-all-dev libxml2-dev xfslibs-dev libgnutls28-dev liblz4-dev libsctp-dev gcc make libprotobuf-dev protobuf-compiler python3 libunwind8-dev systemtap-sdt-dev libtool cmake g++ libyaml-cpp-dev libjsoncpp-dev libthrift-dev thrift-compiler antlr3-c++-dev antlr3 libsnappy-dev git python3-pyparsing
+RUN apt -y install default-jdk-headless openssh-server
+RUN useradd -m jenkins
+RUN mkdir /home/jenkins/.ssh
+COPY authorized_keys /home/jenkins/.ssh/authorized_keys
+RUN mkdir /home/jenkins/workdir
+RUN chown -R jenkins:jenkins /home/jenkins
+RUN chmod 700 /home/jenkins/.ssh
+RUN chmod 600 /home/jenkins/.ssh/authorized_keys
+EXPOSE 22
+RUN mkdir -p /var/run/sshd
+RUN chmod 700 /var/run/sshd
+VOLUME /home/jenkins/workdir
