@@ -1,3 +1,3 @@
 FROM fedora:26
 MAINTAINER Avi Kivity <avi@scylladb.com>
-RUN dnf -y update && dnf -y install gcc-c++ libaio-devel ninja-build ragel hwloc-devel numactl-devel libpciaccess-devel cryptopp-devel xen-devel boost-devel libxml2-devel xfsprogs-devel yaml-cpp-devel lz4-devel zlib-devel snappy-devel jsoncpp-devel thrift-devel antlr3-tool antlr3-C++-devel libasan libubsan python3 git gnutls-devel sudo python3-pyparsing lksctp-tools-devel && dnf clean all
+RUN dnf -y install gcc-c++  && dnf clean all
