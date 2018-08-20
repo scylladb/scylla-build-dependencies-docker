@@ -12,4 +12,5 @@ RUN \
     libasan libubsan python3 git gnutls-devel sudo \
     python3-pyparsing lksctp-tools-devel cmake libtool \
     systemtap-sdt-devel libunwind-devel protobuf-devel \
+    openssl-devel \
   && dnf clean all
